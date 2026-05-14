@@ -21,6 +21,12 @@ async function getCurrentUserId() {
   return user.id
 }
 
+function normaliseOptionalFields<T extends Record<string, unknown>>(input: T): T {
+  return Object.fromEntries(
+    Object.entries(input).map(([key, value]) => [key, value === '' ? null : value])
+  ) as T
+}
+
 export async function getApplications() {
   const userId = await getCurrentUserId()
 
@@ -57,10 +63,12 @@ export async function getApplicationById(id: string) {
 export async function createApplication(input: CreateApplicationInput) {
   const userId = await getCurrentUserId()
 
+  const cleanedInput = normaliseOptionalFields(input)
+
   const { data, error } = await supabase
     .from('applications')
     .insert({
-      ...input,
+      ...cleanedInput,
       user_id: userId,
       status: input.status ?? 'wishlist',
     })
@@ -80,9 +88,11 @@ export async function updateApplication(
 ) {
   const userId = await getCurrentUserId()
 
+  const cleanedInput = normaliseOptionalFields(input)
+
   const { data, error } = await supabase
     .from('applications')
-    .update(input)
+    .update(cleanedInput)
     .eq('id', id)
     .eq('user_id', userId)
     .select()
