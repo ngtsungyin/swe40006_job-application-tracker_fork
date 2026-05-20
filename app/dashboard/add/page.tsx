@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createApplication } from '@/lib/applications'
+import type { ApplicationStatus } from '@/lib/application-types'
+
 
 export default function AddApplicationPage() {
   const router = useRouter()
@@ -11,7 +13,7 @@ export default function AddApplicationPage() {
   const [jobTitle, setJobTitle] = useState('')
   const [jobUrl, setJobUrl] = useState('')
   const [location, setLocation] = useState('')
-  const [status, setStatus] = useState('wishlist')
+  const [status, setStatus] = useState('wishlist' as ApplicationStatus)
   const [appliedDate, setAppliedDate] = useState('')
   const [deadline, setDeadline] = useState('')
   const [notes, setNotes] = useState('')
@@ -95,7 +97,7 @@ export default function AddApplicationPage() {
           <label>Status</label>
           <select
             value={status}
-            onChange={(e) => setStatus(e.target.value)}
+            onChange={(e) => setStatus(e.target.value as ApplicationStatus)}
             style={inputStyle}
           >
             <option value="wishlist">wishlist</option>
