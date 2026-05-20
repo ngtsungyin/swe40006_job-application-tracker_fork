@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\Kai Shuen\\\\Documents\\\\40006\\(2\\)\\\\swe40006_job-application-tracker-feature-supabase-crud\\\\app\" -Recurse -Depth 2 | Select-Object FullName | ForEach-Object { $_.FullName -replace [regex]::Escape\\(\"c:\\\\Users\\\\Kai Shuen\\\\Documents\\\\40006\\(2\\)\\\\swe40006_job-application-tracker-feature-supabase-crud\"\\), \".\" })",
+      "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\Kai Shuen\\\\Documents\\\\40006\\(2\\)\\\\swe40006_job-application-tracker-feature-supabase-crud\\\\lib\" -Recurse | Select-Object FullName | ForEach-Object { $_.FullName -replace [regex]::Escape\\(\"c:\\\\Users\\\\Kai Shuen\\\\Documents\\\\40006\\(2\\)\\\\swe40006_job-application-tracker-feature-supabase-crud\"\\), \".\" })",
+      "Bash(npm install *)"
+    ]
+  }
+}
