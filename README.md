@@ -29,8 +29,13 @@ npm install
 
 ```env
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
 ```
+
+3. Set up the database by running the schema SQL file:
+   - Open your Supabase project's SQL editor
+   - Copy the contents of `supabase/schema.sql` and execute it
+   - This will create the `applications` table with RLS policies
 
 ### Development
 

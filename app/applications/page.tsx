@@ -1,5 +1,7 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import React, { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import Link from 'next/link'
@@ -117,23 +119,29 @@ export default function ApplicationsPage() {
     router.push('/login')
   }
 
-  async function loadApplications() {
-    try {
-      setLoading(true)
-      setError(null)
-
-      const data = await getApplications()
-
-      setItems((data ?? []) as JobApplication[])
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Failed to load applications')
-    } finally {
-      setLoading(false)
-    }
-  }
-
   useEffect(() => {
-    void loadApplications()
+    let cancelled = false
+
+    getApplications()
+      .then((data) => {
+        if (!cancelled) {
+          setItems((data ?? []) as JobApplication[])
+        }
+      })
+      .catch((e) => {
+        if (!cancelled) {
+          setError(e instanceof Error ? e.message : 'Failed to load applications')
+        }
+      })
+      .finally(() => {
+        if (!cancelled) {
+          setLoading(false)
+        }
+      })
+
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   async function handleDelete(id: string) {
