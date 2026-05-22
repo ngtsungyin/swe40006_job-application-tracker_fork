@@ -15,7 +15,12 @@ jest.mock('next/navigation', () => ({
   }),
 }))
 
-jest.mock('next/link', () => (props: any) => props.children)
+interface LinkProps {
+  children?: React.ReactNode
+  [key: string]: unknown
+}
+
+jest.mock('next/link', () => (props: LinkProps) => props.children)
 
 jest.mock('@/lib/applications', () => ({
   getApplications: mockGetApplications,

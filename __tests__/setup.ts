@@ -1,9 +1,13 @@
 import '@testing-library/jest-dom'
 import { jest } from '@jest/globals'
 
+interface NextImageProps {
+  [key: string]: unknown
+}
+
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: any) => ({
+  default: (props: NextImageProps) => ({
     type: 'img',
     props,
   }),
@@ -28,19 +32,29 @@ jest.mock('next/navigation', () => ({
   },
 }))
 
+interface LinkProps {
+  children?: React.ReactNode
+  [key: string]: unknown
+}
+
 jest.mock('next/link', () => {
-  return (props: any) => props.children
+  return (props: LinkProps) => props.children
 })
+
+interface MotionComponentProps {
+  children?: React.ReactNode
+  [key: string]: unknown
+}
 
 jest.mock('motion/react', () => ({
   motion: {
-    div: (props: any) => props.children,
-    button: (props: any) => props.children,
-    span: (props: any) => props.children,
-    form: (props: any) => props.children,
-    p: (props: any) => props.children,
+    div: (props: MotionComponentProps) => props.children,
+    button: (props: MotionComponentProps) => props.children,
+    span: (props: MotionComponentProps) => props.children,
+    form: (props: MotionComponentProps) => props.children,
+    p: (props: MotionComponentProps) => props.children,
   },
-  AnimatePresence: (props: any) => props.children,
+  AnimatePresence: (props: MotionComponentProps) => props.children,
 }))
 
 jest.mock('@/lib/supabase', () => ({
@@ -68,11 +82,16 @@ jest.mock('@/lib/supabase', () => ({
   },
 }))
 
+interface ChartComponentProps {
+  children?: React.ReactNode
+  [key: string]: unknown
+}
+
 jest.mock('recharts', () => ({
-  PieChart: (props: any) => props.children,
+  PieChart: (props: ChartComponentProps) => props.children,
   Pie: () => null,
   Cell: () => null,
-  ResponsiveContainer: (props: any) => props.children,
+  ResponsiveContainer: (props: ChartComponentProps) => props.children,
   Tooltip: () => null,
 }))
 
@@ -80,7 +99,7 @@ const originalError = console.error
 const originalWarn = console.warn
 
 beforeAll(() => {
-  console.error = jest.fn((...args: any[]) => {
+  console.error = jest.fn((...args: unknown[]) => {
     if (
       typeof args[0] === 'string' &&
       (args[0].includes('Warning: ReactDOM.render') ||
@@ -92,7 +111,7 @@ beforeAll(() => {
     originalError.call(console, ...args)
   })
 
-  console.warn = jest.fn((...args: any[]) => {
+  console.warn = jest.fn((...args: unknown[]) => {
     if (
       typeof args[0] === 'string' &&
       (args[0].includes('Warning: useLayoutEffect does nothing on the server') ||
@@ -109,7 +128,11 @@ afterAll(() => {
   console.warn = originalWarn
 })
 
-;(global as any).ResizeObserver = jest.fn().mockImplementation(() => ({
+interface Global {
+  ResizeObserver: jest.Mock
+}
+
+;(global as unknown as Global).ResizeObserver = jest.fn().mockImplementation(() => ({
   observe: jest.fn(),
   unobserve: jest.fn(),
   disconnect: jest.fn(),
