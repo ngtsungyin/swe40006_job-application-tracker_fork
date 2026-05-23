@@ -1,6 +1,18 @@
 import '@testing-library/jest-dom'
 import { jest } from '@jest/globals'
 
+// Polyfill fetch and other globals for JSDOM
+if (typeof global.fetch === 'undefined') {
+  // @ts-ignore
+  global.fetch = globalThis.fetch
+  // @ts-ignore
+  global.Headers = globalThis.Headers
+  // @ts-ignore
+  global.Request = globalThis.Request
+  // @ts-ignore
+  global.Response = globalThis.Response
+}
+
 interface NextImageProps {
   [key: string]: unknown
 }
