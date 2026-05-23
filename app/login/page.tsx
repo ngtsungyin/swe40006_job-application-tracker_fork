@@ -1,6 +1,8 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+export const dynamic = 'force-dynamic'
+
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/src/lib/utils';

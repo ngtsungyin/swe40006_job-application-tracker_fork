@@ -1,5 +1,7 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createApplication } from '@/lib/applications'
@@ -52,8 +54,9 @@ export default function AddApplicationPage() {
 
       <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '14px' }}>
         <div>
-          <label>Company Name *</label>
+          <label htmlFor="companyName">Company Name *</label>
           <input
+            id="companyName"
             type="text"
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
@@ -63,8 +66,9 @@ export default function AddApplicationPage() {
         </div>
 
         <div>
-          <label>Job Title *</label>
+          <label htmlFor="jobTitle">Job Title *</label>
           <input
+            id="jobTitle"
             type="text"
             value={jobTitle}
             onChange={(e) => setJobTitle(e.target.value)}
@@ -74,8 +78,9 @@ export default function AddApplicationPage() {
         </div>
 
         <div>
-          <label>Job URL</label>
+          <label htmlFor="jobUrl">Job URL</label>
           <input
+            id="jobUrl"
             type="text"
             value={jobUrl}
             onChange={(e) => setJobUrl(e.target.value)}
@@ -84,8 +89,9 @@ export default function AddApplicationPage() {
         </div>
 
         <div>
-          <label>Location</label>
+          <label htmlFor="location">Location</label>
           <input
+            id="location"
             type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
@@ -94,8 +100,9 @@ export default function AddApplicationPage() {
         </div>
 
         <div>
-          <label>Status</label>
+          <label htmlFor="status">Status</label>
           <select
+            id="status"
             value={status}
             onChange={(e) => setStatus(e.target.value as ApplicationStatus)}
             style={inputStyle}
@@ -109,8 +116,9 @@ export default function AddApplicationPage() {
         </div>
 
         <div>
-          <label>Applied Date</label>
+          <label htmlFor="appliedDate">Applied Date</label>
           <input
+            id="appliedDate"
             type="date"
             value={appliedDate}
             onChange={(e) => setAppliedDate(e.target.value)}
@@ -119,8 +127,9 @@ export default function AddApplicationPage() {
         </div>
 
         <div>
-          <label>Deadline</label>
+          <label htmlFor="deadline">Deadline</label>
           <input
+            id="deadline"
             type="date"
             value={deadline}
             onChange={(e) => setDeadline(e.target.value)}
@@ -129,8 +138,9 @@ export default function AddApplicationPage() {
         </div>
 
         <div>
-          <label>Notes</label>
+          <label htmlFor="notes">Notes</label>
           <textarea
+            id="notes"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             rows={4}
