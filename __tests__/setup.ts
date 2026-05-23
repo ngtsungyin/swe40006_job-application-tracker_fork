@@ -3,13 +3,13 @@ import { jest } from '@jest/globals'
 
 // Polyfill fetch and other globals for JSDOM
 if (typeof global.fetch === 'undefined') {
-  // @ts-ignore
+  // @ts-expect-error - fetch is not defined in JSDOM but available in Node.js globalThis
   global.fetch = globalThis.fetch
-  // @ts-ignore
+  // @ts-expect-error - Headers is not defined in JSDOM but available in Node.js globalThis
   global.Headers = globalThis.Headers
-  // @ts-ignore
+  // @ts-expect-error - Request is not defined in JSDOM but available in Node.js globalThis
   global.Request = globalThis.Request
-  // @ts-ignore
+  // @ts-expect-error - Response is not defined in JSDOM but available in Node.js globalThis
   global.Response = globalThis.Response
 }
 
