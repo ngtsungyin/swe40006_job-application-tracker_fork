@@ -2,15 +2,20 @@ import '@testing-library/jest-dom'
 import { jest } from '@jest/globals'
 
 // Polyfill fetch and other globals for JSDOM
-if (typeof global.fetch === 'undefined') {
+if (typeof global.fetch !== 'function') {
   // @ts-expect-error - fetch is not defined in JSDOM but available in Node.js globalThis
-  global.fetch = globalThis.fetch
+  global.fetch = globalThis.fetch || jest.fn(() => 
+    Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve({}),
+    })
+  );
   // @ts-expect-error - Headers is not defined in JSDOM but available in Node.js globalThis
-  global.Headers = globalThis.Headers
+  global.Headers = globalThis.Headers || class {};
   // @ts-expect-error - Request is not defined in JSDOM but available in Node.js globalThis
-  global.Request = globalThis.Request
+  global.Request = globalThis.Request || class {};
   // @ts-expect-error - Response is not defined in JSDOM but available in Node.js globalThis
-  global.Response = globalThis.Response
+  global.Response = globalThis.Response || class {};
 }
 
 interface NextImageProps {
