@@ -99,7 +99,7 @@ export default function LoginPage() {
         <div className="flex flex-col p-10 sm:p-12 lg:p-14">
           <div className="mb-6 flex-1">
             <h2 className="mb-4 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
-              Welcome to your hiii application tracker.
+              Welcome to your job application tracker.
             </h2>
 
             <p className="mb-8 max-w-xs text-sm leading-relaxed text-slate-500 dark:text-slate-400">
